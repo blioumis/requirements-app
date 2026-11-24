@@ -409,14 +409,14 @@ docs/
 
 ## Academic Information
 
-- University: University of Ioannina
-- Department: Computer Science and Engineering
-- Course: Software Engineering
-- Academic Year: 2025-2026
-- Project Type: Academic Team Project
-- Team Size: 3 students
-- Development Methodology: Scrum
-- Number of Sprints: 6
+- **University:** University of Ioannina
+- **Department:** Computer Science and Engineering
+- **Course:** Software Engineering
+- **Academic Year:** 2025-2026
+- **Project Type:** Academic Team Project
+- **Team Size:** 3 students
+- **Development Methodology:** Scrum
+- **Number of Sprints:** 6
 
 ## Copyright
 
