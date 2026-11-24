@@ -1,0 +1,24 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>Diagrams</title>
+</head>
+<body>
+	<h1>Diagram scripts</h1>
+
+	<h2>Use Case diagram (PlantUML)</h2>
+	<pre th:text="${usecasePlantUml}"></pre>
+
+	<h2>Use Case diagram (Nomnoml)</h2>
+	<pre th:text="${usecaseNomnoml}"></pre>
+
+	<h2>Class diagram from CRC cards (PlantUML)</h2>
+	<pre th:text="${classPlantUml}"></pre>
+
+	<h2>Class diagram from CRC cards (Nomnoml)</h2>
+	<pre th:text="${classNomnoml}"></pre>
+
+	<p><a th:href="@{/projects}">Back to Projects</a></p>
+</body>
+</html>

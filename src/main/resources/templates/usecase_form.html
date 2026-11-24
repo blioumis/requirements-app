@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Use Case</title>
+</head>
+<body>
+	<h1 th:if="${mode == 'create'}"> Create Use Case</h1> 
+	<h1 th:if="${mode == 'edit'}">Edit Use Case</h1>
+	
+	<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+	
+	<!-- CREATE FORM -->
+	<form th:if="${mode == 'create'}" method="post" th:action="@{'/projects/' + ${projectId} + '/usecases'}">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+		
+		<div>
+			<label><b>Use case:</b></label>
+			<input type="text" name="title" th:value="${form.title}" required>
+		</div>
+		
+		<div>
+			<label><b>Actors:</b></label>
+			<input type="text" name="actors" th:value="${form.actors}">
+		</div>
+		
+		<div>
+			<label><b>Pre conditions:</b></label><br>
+			<textarea name="preconditions" rows="4" cols="60" th:text="${form.preconditions}"></textarea>
+		</div>
+		
+		<div>
+			<label><b>Flow of events:</b></label><br>
+			<textarea name="mainFlow" rows="6" cols="60" th:text="${form.mainFlow}"></textarea>
+		</div>
+		
+		<div>
+			<label><b>Post conditions:</b></label><br>
+			<textarea name="postconditions" rows="4" cols="60" th:text="${form.postconditions}"></textarea>
+		</div>
+
+		<div>
+			<label><b>Alternative flow:</b></label><br>
+			<textarea name="alternativeFlow" rows="6" cols="60" th:text="${form.alternativeFlow}"></textarea>
+		</div>
+
+		<div>
+			<label><b>Post conditions:</b></label><br>
+			<textarea name="postconditionsAlt" rows="4" cols="60" th:text="${form.postconditionsAlt}"></textarea>
+		</div>
+		
+		<button type="submit">Create</button>
+	</form>
+	
+	<!-- EDIT FORM -->
+	<form th:if="${mode == 'edit'}" method="post" th:action="@{'/projects/' + ${projectId} + '/usecases/' + ${useCaseId}}">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+	    <div>
+			<label><b>Use case:</b></label>
+			<input type="text" name="title" th:value="${form.title}" required>
+	    </div>
+		
+		<p>
+			<b>ID:</b> <span th:text="'UC' + ${ucNumber}"></span>
+		</p>
+
+	    <div>
+			<label><b>Actors:</b></label>
+			<input type="text" name="actors" th:value="${form.actors}">
+	    </div>
+
+	    <div>
+			<label><b>Pre conditions:</b></label><br>
+			<textarea name="preconditions" rows="4" cols="60" th:text="${form.preconditions}"></textarea>
+	    </div>
+
+	    <div>
+			<label><b>Flow of events:</b></label><br>
+			<textarea name="mainFlow" rows="6" cols="60" th:text="${form.mainFlow}"></textarea>
+	    </div>
+
+	    <div>
+			<label><b>Post conditions:</b></label><br>
+			<textarea name="postconditions" rows="4" cols="60" th:text="${form.postconditions}"></textarea>
+	    </div>
+		
+		<div>
+			<label><b>Alternative flow:</b></label><br>
+			<textarea name="alternativeFlow" rows="6" cols="60" th:text="${form.alternativeFlow}"></textarea>
+		</div>
+		
+		<div>
+			<label><b>Post conditions:</b></label><br>
+			<textarea name="postconditionsAlt" rows="4" cols="60" th:text="${form.postconditionsAlt}"></textarea>
+		</div>
+		
+		<button type="submit">Save</button>
+	</form>
+	
+	<p><a th:href="@{'/projects/' + ${projectId} + '/usecases'}">Back</a></p>
+
+</body>
+</html>

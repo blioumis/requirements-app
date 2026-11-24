@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>Share Project</title>
+</head>
+<body>
+	<h1>Share Project</h1>
+
+	<p>
+		Project: <b th:text="${project.name}"></b>
+	</p>
+
+	<p th:if="${error}" th:text="${error}"></p>
+
+	<h2>Teammates</h2>
+
+	<p th:if="${teammates.size() == 0}">
+		No teammates yet.
+	</p>
+
+	<ul>
+		<li th:each="t : ${teammates}">
+			<b th:text="${t.name}"></b>
+			<span>(</span><span th:text="${t.email}"></span><span>)</span>
+			<form method="post" th:action="@{'/projects/' + ${project.id} + '/share/remove'}" style="display:inline;">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<input type="hidden" name="teammateId" th:value="${t.id}">
+				<button type="submit">Remove</button>
+			</form>
+		</li>
+	</ul>
+
+	<h2>Add teammate</h2>
+
+	<form method="post" th:action="@{'/projects/' + ${project.id} + '/share'}" th:object="${form}">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+		<label>Email</label>
+		<input type="text" th:field="*{email}">
+		<button type="submit">Add</button>
+	</form>
+
+	<p><a href="/projects">Back to Projects</a></p>
+</body>
+</html>

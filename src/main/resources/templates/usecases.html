@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>Use Cases</title>
+</head>
+<body>
+	<h1>Use Cases</h1>
+	<p>
+		<a th:href="@{'/projects/' + ${projectId} + '/usecases/new'}">Create Use Case</a>
+	</p>
+	
+	<ul>
+		<li th:each="uc : ${usecases}">
+			Use case: <b th:text="${uc.title}"></b>
+			&nbsp;&nbsp;
+			ID: <b th:text="'UC' + ${uc.ucNumber}"></b>
+			&nbsp;&nbsp;
+			
+			<a th:href="@{'/projects/' + ${projectId} + '/usecases/' + ${uc.id} + '/edit'}">Edit</a>
+			&nbsp;&nbsp;
+			<a th:href="@{'/projects/' + ${projectId} + '/usecases/' + ${uc.id} + '/crccards'}">Link CRC cards</a>
+			&nbsp;&nbsp;
+			<a th:href="@{'/projects/' + ${projectId} + '/usecases/' + ${uc.id} + '/comments'}">Comments</a>
+			&nbsp;&nbsp;
+						
+			<form method="post" th:action="@{'/projects/' + ${projectId} + '/usecases/' + ${uc.id} + '/delete'}" style="display:inline;">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<button type="submit">Delete</button>
+			</form>
+		</li>
+	</ul>
+
+	<h2>Template</h2>
+	<ul>
+		<li th:each="uc : ${usecases}">
+			<span th:if="${#lists.isEmpty(linksByUseCaseId[uc.id])}">
+				<span>Use case </span><b th:text="${uc.title}"></b>
+				<span> does not have linked CRC cards</span>
+			</span>
+
+			<span th:if="${not #lists.isEmpty(linksByUseCaseId[uc.id])}">
+				<span>Use case </span><b th:text="${uc.title}"></b>
+				<span> is linked with CRC cards : </span>
+
+				<span th:each="cardName, stat : ${linksByUseCaseId[uc.id]}">
+					<b th:text="${cardName}"></b><span th:if="${!stat.last}">, </span>
+				</span>
+			</span>
+		</li>
+	</ul>
+	
+	<br>
+	<p><a href="/projects">Back to Projects</a></p>
+
+</body>
+</html>

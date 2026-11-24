@@ -1,0 +1,86 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>CRC card</title>
+</head>
+<body>
+
+	<h2 th:if="${mode == 'create'}">Create CRC card</h2>
+	<h2 th:if="${mode == 'edit'}">Edit CRC card</h2>
+
+	<div th:if="${error != null}">
+		<b th:text="${error}" style="color:red;"></b>
+	</div>
+
+	<form th:if="${mode == 'create'}"
+		  method="post"
+		  th:action="@{'/projects/' + ${projectId} + '/crccards'}">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+		<div>
+			<label><b>Class name</b></label><br>
+			<input type="text" name="className" th:value="${form.className}">
+		</div>
+		<br>
+
+		<div>
+			<label><b>Responsibilities</b></label><br>
+			<textarea name="responsibilities" rows="6" cols="60" th:text="${form.responsibilities}"></textarea>
+		</div>
+		<br>
+
+		<div th:if="${collaborationError != null}">
+			<b th:text="${collaborationError}" style="color:red;"></b>
+		</div>
+
+		<h3>Collaborations</h3>
+		<ul>
+			<li><b>Association:</b> <input type="text" name="association" th:value="${form.association}"></li>
+			<li><b>Dependency:</b> <input type="text" name="dependency" th:value="${form.dependency}"></li>
+			<li><b>Aggregation:</b> <input type="text" name="aggregation" th:value="${form.aggregation}"></li>
+			<li><b>Composition:</b> <input type="text" name="composition" th:value="${form.composition}"></li>
+			<li><b>Inheritance:</b> <input type="text" name="inheritance" th:value="${form.inheritance}"></li>
+		</ul>
+
+		<button type="submit">Save</button>
+	</form>
+
+	<form th:if="${mode == 'edit'}"
+		  method="post"
+		  th:action="@{'/projects/' + ${projectId} + '/crccards/' + ${crcCardId}}">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+		<div>
+			<label><b>Class name</b></label><br>
+			<input type="text" name="className" th:value="${form.className}">
+		</div>
+		<br>
+
+		<div>
+			<label><b>Responsibilities</b></label><br>
+			<textarea name="responsibilities" rows="6" cols="60" th:text="${form.responsibilities}"></textarea>
+		</div>
+		<br>
+
+		<div th:if="${collaborationError != null}">
+			<b th:text="${collaborationError}" style="color:red;"></b>
+		</div>
+
+		<h3>Collaborations</h3>
+		<ul>
+			<li><b>Association:</b> <input type="text" name="association" th:value="${form.association}"></li>
+			<li><b>Dependency:</b> <input type="text" name="dependency" th:value="${form.dependency}"></li>
+			<li><b>Aggregation:</b> <input type="text" name="aggregation" th:value="${form.aggregation}"></li>
+			<li><b>Composition:</b> <input type="text" name="composition" th:value="${form.composition}"></li>
+			<li><b>Inheritance:</b> <input type="text" name="inheritance" th:value="${form.inheritance}"></li>
+		</ul>
+
+		<button type="submit">Save</button>
+	</form>
+
+	<br>
+	<a th:href="@{'/projects/' + ${projectId} + '/crccards'}">Back</a>
+
+</body>
+</html>

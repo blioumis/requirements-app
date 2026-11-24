@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Link CRC cards</title>
+</head>
+<body>
+	<h2>Link CRC cards</h2>
+	
+	<div>
+		<b>Use case:</b>
+		<span th:text="${useCase.title}"></span>
+	</div>
+	<hr>
+	<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+	<div th:each="c : ${cards}">
+		<b th:text="${c.className}"></b>
+		
+		<span th:if="${#lists.contains(linkedIds, c.id)}">
+			<form th:action="@{'/projects/' + ${projectId} + '/usecases/' + ${useCase.id} + '/crccards/unlink'}" method="post" style="display:inline;">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<input type="hidden" name="crcCardId" th:value="${c.id}">
+				<button type="submit">Unlink</button>
+			</form>
+		</span>
+		
+		<span th:if="${!#lists.contains(linkedIds, c.id)}">
+			<form th:action="@{'/projects/' + ${projectId} + '/usecases/' + ${useCase.id} + '/crccards/link'}" method="post" style="display:inline;">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<input type="hidden" name="crcCardId" th:value="${c.id}">
+				<button type="submit">Link</button>
+			</form>
+		</span>
+		
+		<div>
+			<i>Responsibilities:</i> <span th:text="${c.responsibilities}"></span>
+		</div>
+		
+		<div>
+			<i>Collaborations:</i> <span th:text="${c.collaborations}"></span>
+		</div>
+		<hr>
+	</div>
+	
+	<a th:href="@{'/projects/' + ${projectId} + '/usecases'}">Back</a>
+</body>
+</html>

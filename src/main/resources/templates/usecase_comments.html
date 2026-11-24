@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Use Case Comments</title>
+</head>
+<body>
+	<h1>Use Case Comments</h1>
+
+	<p>
+		Use case: <b th:text="${useCase.title}"></b>
+		&nbsp;&nbsp;
+		ID: <b th:text="'UC' + ${useCase.ucNumber}"></b>
+	</p>
+
+	<h2>Comments</h2>
+
+	<p th:if="${comments.size() == 0}">
+		No comments yet.
+	</p>
+
+	<ul>
+		<li th:each="c : ${comments}">
+			<span th:if="${c.authorName != null and !c.authorName.isEmpty()}">
+				<b th:text="${c.authorName}"></b><span>: </span>
+			</span>
+
+			<span th:text="${c.text}"></span>
+
+			<span th:if="${c.authorId != null and c.authorId == currentUserId}">
+				&nbsp;&nbsp;
+				<a th:href="@{'/projects/' + ${projectId} + '/comments/' + ${c.id} + '/edit'}">Edit</a>
+				&nbsp;&nbsp;
+
+				<form method="post" th:action="@{'/projects/' + ${projectId} + '/comments/' + ${c.id} + '/delete'}" style="display:inline;">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+					<button type="submit">Delete</button>
+				</form>
+			</span>
+		</li>
+	</ul>
+
+	<h2>Add comment</h2>
+
+	<form method="post" th:action="@{'/projects/' + ${projectId} + '/usecases/' + ${useCase.id} + '/comments'}" th:object="${form}">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+		<textarea th:field="*{text}" rows="4" cols="60"></textarea>
+		<br>
+		<button type="submit">Add</button>
+	</form>
+
+	<p><a th:href="@{'/projects/' + ${projectId} + '/usecases'}">Back</a></p>
+</body>
+</html>
