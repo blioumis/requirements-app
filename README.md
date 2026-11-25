@@ -1,4 +1,3 @@
-
 # Requirements Management App
 
 A web-based application for software requirements specification
@@ -271,12 +270,9 @@ and validated through appropriate tests.
 
 ## Team Collaboration
 
-The project was developed collaboratively by three students
-through shared coding sessions, collective design decisions,
-implementation, debugging and testing.
-
-All three team members actively participated in the development
-process, working together throughout the project lifecycle.
+This project was developed collaboratively by a team of three
+students, with all members actively participating in the
+design, implementation, testing and documentation of the application.
 
 ## Testing
 
